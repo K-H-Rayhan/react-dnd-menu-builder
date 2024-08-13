@@ -4,7 +4,7 @@ React DND Menu Builder is a user-friendly drag-and-drop menu builder for React, 
 
 ## WordPress-Like Menu Builder for React and Nextjs
 
-![react-dnd-menu-builder](https://github.com/K-H-Rayhan/react-dnd-menu-builder/assets/83538046/81f4a6fc-640d-4712-9278-f39e0cd48176)
+<img alt="Nextjs Animated Slider"  src="https://github.com/user-attachments/assets/e40a87ac-63f4-4686-bc06-7f8654c846a3" width="100%" />
 
 ## 🖥 Demo
 
