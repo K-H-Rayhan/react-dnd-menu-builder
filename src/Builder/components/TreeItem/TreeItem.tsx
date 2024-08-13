@@ -57,6 +57,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
     >({
       id: value,
       href: props?.otherfields?.href,
+      name: props?.otherfields?.name,
     });
 
     return (
@@ -94,7 +95,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
           }}
         >
           <span className={"Text"}>
-            {value}{" "}
+            {props?.otherfields?.name}{" "}
             <span
               style={{
                 fontSize: "13px",
@@ -148,9 +149,9 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
                 Navigation Label
               </label>
               <input
-                value={newData.id}
+                value={newData.name}
                 onChange={(e) => {
-                  setNewData({ ...newData, id: e.target.value });
+                  setNewData({ ...newData, name: e.target.value });
                 }}
                 type="text"
                 id="label"
@@ -263,7 +264,7 @@ const RecursiveItem = (props: {
           fontSize: "13px",
         }}
       >
-        {props.child.id}{" "}
+        {props.child.name}{" "}
         <span
           style={{
             fontSize: "13px",

@@ -101,6 +101,7 @@ export function MenuBuilder({ style = "bordered", items, setItems }: Props) {
     for (const item of items) {
       if (item.id === id) {
         item.id = data.id;
+        item.name = data.name;
         item.href = data.href;
       }
 
@@ -244,6 +245,7 @@ export function MenuBuilder({ style = "bordered", items, setItems }: Props) {
                   // Todo: Pass items here
                   childCount={getChildCount(items, activeId) + 1}
                   value={activeId.toString()}
+                  otherfields={activeItem}
                   indentationWidth={indentationWidth}
                   childs={getChildrens(items, activeId)}
                 />
