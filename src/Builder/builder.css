@@ -1,0 +1,120 @@
+/* Wrapper styles */
+.Wrapper {
+  list-style: none;
+  box-sizing: border-box;
+  margin-bottom: -1px;
+  -webkit-font-smoothing: subpixel-antialiased;
+
+}
+
+.Wrapper.clone {
+  display: inline-block;
+  pointer-events: none;
+  padding: 0;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.Wrapper.clone .TreeItem {
+  --vertical-padding: 5px;
+  padding-right: 24px;
+  border-radius: 4px;
+  box-shadow: 0px 15px 15px 0 rgba(34, 33, 81, 0.1);
+  width: '100%';
+  min-width: 414px;
+}
+
+.Wrapper.ghost.indicator {
+  opacity: 1;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -1px;
+}
+
+.Wrapper.ghost.indicator .TreeItem {
+  position: relative;
+  width: '100%';
+  max-width: 414px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px dashed #dcdcde;
+  background-color: #fff;
+}
+
+.Wrapper.ghost.indicator .TreeItem>* {
+  opacity: 0;
+  height: 0;
+}
+
+.Wrapper.ghost:not(.indicator) {
+  opacity: 0.5;
+}
+
+.Wrapper.ghost .TreeItem>* {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* TreeItem styles */
+.TreeItem {
+  width: '100%';
+  max-width: 414px;
+  height: 42px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f6f7f7;
+  border: 1px solid #dcdcde;
+  color: #1d2327;
+  box-sizing: border-box;
+  margin-top: 9px;
+  cursor: move;
+}
+
+.TreeItem:hover {
+  border: 1px solid #8c8f94;
+}
+
+/* Text styles */
+.Text {
+  flex-grow: 1;
+  padding-left: 0.5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Count styles */
+.Count {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Disable Interaction styles */
+.disableInteraction {
+  pointer-events: none;
+}
+
+/* Disable Selection styles */
+.disableSelection,
+.clone .Text,
+.clone .Count {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Collapse styles */
+.Collapse svg {
+  transition: transform 250ms ease;
+}
+
+.Collapse.collapsed svg {
+  transform: rotate(-90deg);
+}
