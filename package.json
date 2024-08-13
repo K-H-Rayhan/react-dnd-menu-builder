@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/K-H-Rayhan/react-dnd-menu-builder"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.4",
