@@ -22,6 +22,17 @@ yarn add react-dnd-menu-builder
 pnpm install react-dnd-menu-builder
 ```
 
+
+## ⚠️ NextJS Import ⚠️
+
+```js
+import dynamic from "next/dynamic";
+
+const MenuBuilder = dynamic(() => import("react-dnd-menu-builder"), {
+  ssr: false,
+});
+```
+
 ## Basic Usage
 
 ```js
