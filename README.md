@@ -29,33 +29,8 @@ import { useState } from "react";
 import MenuBuilder from "react-dnd-menu-builder";
 
 function App() {
-  const [menus, setMenus] = useState([
-    {
-      id: "Home",
-      name: "Home",
-      href: "/home",
-      children: [],
-    },
-    {
-      id: "Collections",
-      href: "/collections",
-      name: "Collections",
-      children: [
-        {
-          id: "Spring",
-          name: "Spring",
-          href: "/spring",
-          children: [],
-        },
-      ],
-    },
-  ]);
-  const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    href: "",
-    children: [],
-  });
+  const [menus, setMenus] = useState(initialMenus);
+  const [formData, setFormData] = useState(initialFormData);
 
   const addMenu = () => {
     setMenus([
@@ -98,6 +73,35 @@ function App() {
 }
 
 export default App;
+
+const initialMenus = [
+  {
+    id: "Home",
+    name: "Home",
+    href: "/home",
+    children: [],
+  },
+  {
+    id: "Collections",
+    href: "/collections",
+    name: "Collections",
+    children: [
+      {
+        id: "Spring",
+        name: "Spring",
+        href: "/spring",
+        children: [],
+      },
+    ],
+  },
+];
+
+const initialFormData = {
+  id: "",
+  name: "",
+  href: "",
+  children: [],
+};
 ```
 
 ## Props Documentation

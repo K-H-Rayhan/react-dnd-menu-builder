@@ -1,6 +1,6 @@
 {
   "name": "react-dnd-menu-builder",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "React DnD Menu Builder",
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs",
