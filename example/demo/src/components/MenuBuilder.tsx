@@ -13,6 +13,7 @@ function MenuBuilderX({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     id: "",
+    name: "",
     href: "",
     children: [],
   });
@@ -23,8 +24,14 @@ function MenuBuilderX({
 
   const handleOk = () => {
     setIsModalOpen(false);
-    handleMenus([...menus, formData]);
-    setFormData({ id: "", href: "", children: [] });
+    handleMenus([
+      ...menus,
+      {
+        ...formData,
+        id: Math.random().toString(36).substring(7),
+      },
+    ]);
+    setFormData({ id: "", name: "", href: "", children: [] });
   };
 
   const handleCancel = () => {
@@ -49,20 +56,30 @@ function MenuBuilderX({
         onCancel={handleCancel}
         okText="Add"
       >
-        <label style={{
-          fontSize: '12px',
-          color: "#1d1d1d7f"
-        }} htmlFor="">Menu Name</label>
+        <label
+          style={{
+            fontSize: "12px",
+            color: "#1d1d1d7f",
+          }}
+          htmlFor=""
+        >
+          Menu Name
+        </label>
         <Input
           placeholder="Home"
-          value={formData.id}
-          onChange={(e) => setFormData({ ...formData, id: e.target.value })}
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
         <div style={{ marginTop: 15 }}>
-          <label style={{
-            fontSize: '12px',
-            color: "#1d1d1d7f"
-          }} htmlFor="">Menu Link</label>
+          <label
+            style={{
+              fontSize: "12px",
+              color: "#1d1d1d7f",
+            }}
+            htmlFor=""
+          >
+            Menu Link
+          </label>
           <Input
             placeholder="/home"
             value={formData.href}

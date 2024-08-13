@@ -1,8 +1,10 @@
 import React from "react";
 
-type Props = {};
+type Props = {
+  collapsed: boolean;
+};
 
-function Logo({}: Props) {
+function Logo({ collapsed }: Props) {
   return (
     <div
       style={{
@@ -12,6 +14,7 @@ function Logo({}: Props) {
         justifyContent: "center",
         alignItems: "center",
         padding: 20,
+        gap: 10,
       }}
     >
       <img
@@ -22,6 +25,15 @@ function Logo({}: Props) {
         src="/burger.png"
         alt=""
       />
+      <p
+        style={{
+          fontSize: 14,
+          fontWeight: "bolder",
+          display: collapsed ? "none" : "block",
+        }}
+      >
+        {collapsed ? null : "React DND Menu Builder"}
+      </p>
     </div>
   );
 }

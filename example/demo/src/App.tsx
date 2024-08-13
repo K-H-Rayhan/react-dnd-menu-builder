@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
   DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
+  ContactsFilled,
+  GithubOutlined,
   TeamOutlined,
-  MinusOutlined,
+  PhoneFilled,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, FloatButton, Layout, Menu, theme, Tooltip } from "antd";
 import MenuBuilder from "./components/MenuBuilder";
 import Logo from "./components/Logo";
 
@@ -27,6 +27,7 @@ const App: React.FC = () => {
   ];
 
   const allKeys = getAllKeys(menus);
+  console.log(menus, "menus");
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -37,7 +38,7 @@ const App: React.FC = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        <Logo />
+        <Logo collapsed={collapsed} />
         <Menu
           defaultOpenKeys={allKeys}
           theme="dark"
@@ -56,15 +57,31 @@ const App: React.FC = () => {
           style={{
             paddingLeft: 24,
             background: colorBgContainer,
-            width: "100%",
-            marginLeft: "auto",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <Menu
-            theme="light"
-            defaultSelectedKeys={[""]}
-            mode="horizontal"
-            items={items(false)}
+          <div
+            style={{
+              width: "100%",
+            }}
+          >
+            <Menu
+              theme="light"
+              defaultSelectedKeys={[""]}
+              mode="horizontal"
+              items={items(false)}
+            />
+          </div>
+          <GithubOutlined
+            style={{
+              fontSize: "1.5em",
+            }}
+            onClick={() => {
+              window.open(
+                "https://github.com/K-H-Rayhan/react-dnd-menu-builder"
+              );
+            }}
           />
         </Header>
         <Content style={{ margin: "0 16px" }}>
@@ -80,12 +97,18 @@ const App: React.FC = () => {
             <MenuBuilder menus={menus} handleMenus={setMenus} />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          React DND Menu Builder ©{new Date().getFullYear()} Created by{" "}
-          <a target="_blank" href="https://github.com/SaaS-Framer">
-            SaaS Framer
-          </a>
-        </Footer>
+        <Tooltip title="Contact me">
+          <FloatButton
+            style={{
+              backgroundColor: "#1890ff",
+            }}
+            type="primary"
+            icon={<ContactsFilled />}
+            onClick={() => {
+              window.open("https://linktr.ee/khrayhan");
+            }}
+          />
+        </Tooltip>
       </Layout>
     </Layout>
   );
@@ -96,8 +119,8 @@ export default App;
 const generateMenuWithChildren = (menus: Menu[], showIcon: boolean): any => {
   return menus.map((menu: Menu) => {
     return {
-      key: menu.href,
-      label: menu.id,
+      key: menu.id,
+      label: menu.name,
       icon: showIcon ? (
         <h3
           style={{
@@ -109,17 +132,18 @@ const generateMenuWithChildren = (menus: Menu[], showIcon: boolean): any => {
       ) : (
         <></>
       ),
-      children: menu.children.length
-        ? generateMenuWithChildren(menu.children, showIcon)
-        : undefined,
+      children:
+        menu?.children && menu?.children.length
+          ? generateMenuWithChildren(menu.children, showIcon)
+          : undefined,
     } as MenuItem;
   });
 };
 
 const getAllKeys = (menus: Menu[]) => {
   return menus.reduce((acc: string[], menu: Menu) => {
-    acc.push(menu.href);
-    if (menu.children.length) {
+    acc.push(menu.id);
+    if (menu?.children && menu.children.length) {
       acc.push(...getAllKeys(menu.children));
     }
     return acc;
@@ -129,37 +153,55 @@ const getAllKeys = (menus: Menu[]) => {
 const initMenus = [
   {
     id: "Home",
+    name: "Home",
     href: "/home",
-    children: [],
   },
   {
     id: "Collections",
     href: "/collections",
+    name: "Collections",
     children: [
       {
         id: "Spring",
+        name: "Spring",
         href: "/spring",
-        children: [],
       },
-      { id: "Summer", href: "/summer", children: [] },
-      { id: "Fall", href: "/fall", children: [] },
-      { id: "Winter", href: "/winter", children: [] },
+      {
+        id: "Summer",
+        name: "Summer",
+        href: "/summer",
+      },
+      {
+        id: "Fall",
+        name: "Fall",
+        href: "/fall",
+      },
+      {
+        id: "Winter",
+        name: "Winter",
+        href: "/winter",
+      },
     ],
   },
   {
     id: "About Us",
+    name: "About Us",
     href: "/about-us",
-    children: [],
   },
   {
     id: "My Account",
+    name: "My Account",
     href: "/my-account",
     children: [
-      { id: "Addresses", href: "/addresses", children: [] },
+      {
+        id: "Addresses",
+        name: "Addresses",
+        href: "/addresses",
+      },
       {
         id: "Order History",
+        name: "Order History",
         href: "/order-history",
-        children: [],
       },
     ],
   },

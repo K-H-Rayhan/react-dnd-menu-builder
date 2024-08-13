@@ -81,7 +81,12 @@ interface Props {
   setItems(items: ((items: any) => TreeItem[]) | TreeItems): void;
 }
 
-export function MenuBuilder({ style = "bordered", items, setItems }: Props) {
+export function MenuBuilder({
+  style = "bordered",
+  items: itemsProps,
+  setItems,
+}: Props) {
+  const items = generateItemChildren(itemsProps);
   const indentationWidth = 50;
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
@@ -190,10 +195,12 @@ export function MenuBuilder({ style = "bordered", items, setItems }: Props) {
   };
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-    }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <DndContext
         accessibility={{ announcements }}
         sensors={sensors}
@@ -392,4 +399,13 @@ const adjustTranslate: Modifier = ({ transform }) => {
   return {
     ...transform,
   };
+};
+
+const generateItemChildren = (items: TreeItems) => {
+  return items.map((item: TreeItem): TreeItem => {
+    return {
+      ...item,
+      children: item?.children ? generateItemChildren(item.children) : [],
+    };
+  });
 };
