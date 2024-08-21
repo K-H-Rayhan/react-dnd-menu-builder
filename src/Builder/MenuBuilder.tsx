@@ -110,7 +110,7 @@ export function MenuBuilder({
         item.href = data.href;
       }
 
-      if (item.children.length) {
+      if (item?.children?.length) {
         item.children = updateItem(id, data, item.children);
       }
 
