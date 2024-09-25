@@ -6,6 +6,7 @@ import {
   DndContext,
   closestCenter,
   KeyboardSensor,
+  TouchSensor,
   PointerSensor,
   useSensor,
   useSensors,
@@ -154,8 +155,11 @@ export function MenuBuilder({
       indentationWidth
     )
   );
+  
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(isTouchDevice ? TouchSensor : PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter,
     })
