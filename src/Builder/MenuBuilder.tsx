@@ -79,12 +79,14 @@ interface Props {
   style?: "bordered" | "shadow";
   items: TreeItems;
   setItems(items: ((items: any) => TreeItem[]) | TreeItems): void;
+  maxLevel?: number;
 }
 
 export function MenuBuilder({
   style = "bordered",
   items: itemsProps,
   setItems,
+  maxLevel,
 }: Props) {
   const items = generateItemChildren(itemsProps);
   const indentationWidth = 50;
@@ -294,6 +296,13 @@ export function MenuBuilder({
 
     if (projected && over) {
       const { depth, parentId } = projected;
+
+      // Check if the depth exceeds the maxLevel limit
+      if (maxLevel !== undefined && depth >= maxLevel) {
+        alert('MaxLevel Exceed!!');
+        return; // Block the drop if the new depth exceeds maxLevel
+      }
+      
       const clonedItems: FlattenedItem[] = JSON.parse(
         JSON.stringify(flattenTree(items))
       );
