@@ -292,32 +292,55 @@ export function MenuBuilder({
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
-    resetState();
-
-    if (projected && over) {
-      const { depth, parentId } = projected;
-
-      // Check if the depth exceeds the maxLevel limit
-      if (maxLevel !== undefined && depth >= maxLevel) {
-        alert('MaxLevel Exceed!!');
-        return; // Block the drop if the new depth exceeds maxLevel
-      }
-      
-      const clonedItems: FlattenedItem[] = JSON.parse(
-        JSON.stringify(flattenTree(items))
-      );
-      const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
-      const activeIndex = clonedItems.findIndex(({ id }) => id === active.id);
-      const activeTreeItem = clonedItems[activeIndex];
-
-      clonedItems[activeIndex] = { ...activeTreeItem, depth, parentId };
-
-      const sortedItems = arrayMove(clonedItems, activeIndex, overIndex);
-      const newItems = buildTree(sortedItems);
-
-      setItems(newItems);
+        resetState();
+    
+        if (projected && over) {
+            const { depth, parentId } = projected;
+    
+            // Helper function to calculate the new depth of an item and its children
+            const calculateDepthForSubItems = (item: FlattenedItem, baseDepth: number): boolean => {
+                if (maxLevel !== undefined && baseDepth >= maxLevel) {
+                    return false; // Return false if any item exceeds maxLevel
+                }
+    
+                if (item.children && item.children.length) {
+                    return item.children.every((child) => {
+                        const childItem = clonedItems.find(({ id }) => id === child.id);
+                        if (childItem) {
+                            return calculateDepthForSubItems(childItem, baseDepth + 1); // Recursively calculate depth for each child
+                        }
+                        return true;
+                    });
+                }
+    
+                return true;
+            };
+    
+            const clonedItems: FlattenedItem[] = JSON.parse(
+                JSON.stringify(flattenTree(items))
+            );
+            const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
+            const activeIndex = clonedItems.findIndex(({ id }) => id === active.id);
+            const activeTreeItem = clonedItems[activeIndex];
+    
+            // Check if the depth exceeds the maxLevel for the dragged item and its children
+            const isValidDepth = calculateDepthForSubItems(activeTreeItem, depth);
+    
+            if (!isValidDepth) {
+                alert('Level Exceed!');
+                return; // Block the drop if the new depth exceeds maxLevel
+            }
+    
+            // Update the depth of the dragged item
+            clonedItems[activeIndex] = { ...activeTreeItem, depth, parentId };
+    
+            // Adjust the order of the items
+            const sortedItems = arrayMove(clonedItems, activeIndex, overIndex);
+            const newItems = buildTree(sortedItems);
+    
+            setItems(newItems);
+        }
     }
-  }
 
   function handleDragCancel() {
     resetState();
